@@ -1,58 +1,52 @@
 #include <iostream>
 #include <cstring>
-using namespace std;
 
-class String
-{
-    char str[100];
+class String {
+private:
+    char* str;
 
 public:
-    String()
-    {
-        strcpy(str, "");
-        cout << "Default constructor called" << endl;
+    
+    String(const char* val = "") {
+        if (val == nullptr) {
+            str = new char[1];
+            str[0] = '\0';
+        } else {
+            str = new char[std::strlen(val) + 1];
+            std::strcpy(str, val);
+        }
     }
 
-    String(char s[])
-    {
-        strcpy(str, s);
-        cout << "Parameterized constructor called" << endl;
+    ~String() {
+        delete[] str;
     }
 
-    String(const String &s)
-    {
-        strcpy(str, s.str);
-        cout << "Copy constructor called" << endl;
+    void Accept() {
+        char temp[1000];
+        std::cout << "Enter a string: ";
+        std::cin.getline(temp, 1000);
+
+        delete[] str;
+
+        str = new char[std::strlen(temp) + 1];
+        std::strcpy(str, temp);
     }
 
-    void Accept()
-    {
-        cout << "Enter string: ";
-        cin.getline(str, 100);
-    }
-
-    void Display()
-    {
-        cout << "String: " << str << endl;
-    }
-
-    ~String()
-    {
-        cout << "Destructor called" << endl;
+    void Display() const {
+        std::cout << "String: " << str << std::endl;
     }
 };
 
-int main()
-{
-    String s1;
-    s1.Accept();
-    s1.Display();
+int main() {
+  
+    std::cout << "--- Initializing obj1 with parameterized constructor ---" << std::endl;
+    String obj1("Hello, World!");
+    obj1.Display();
 
-    String s2("Hello World");
-    s2.Display();
-
-    String s3(s2);
-    s3.Display();
+    std::cout << "\n--- Creating obj2 and taking user input ---" << std::endl;
+    String obj2;
+    obj2.Accept();
+    obj2.Display();
 
     return 0;
 }
