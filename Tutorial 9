@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+
+class Shape {
+public:
+    virtual double area() {
+        return 0;
+    }
+};
+
+class Circle : public Shape {
+    double radius;
+public:
+    Circle(double r) {
+        radius = r;
+    }
+
+    double area() override {
+        return 3.14 * radius * radius;
+    }
+};
+
+class Rectangle : public Shape {
+    double length, breadth;
+public:
+    Rectangle(double l, double b) {
+        length = l;
+        breadth = b;
+    }
+
+    double area() override {
+        return length * breadth;
+    }
+};
+
+int main() {
+    double r, l, b;
+
+    cout << "Enter circle radius: ";
+    cin >> r;
+
+    cout << "Enter rectangle length and breadth: ";
+    cin >> l >> b;
+
+    Circle c(r);
+    Rectangle rect(l, b);
+
+    Shape *s;
+
+    s = &c;
+    cout << "Area of Circle: " << s->area() << endl;
+
+    s = &rect;
+    cout << "Area of Rectangle: " << s->area() << endl;
+
+    return 0;
+}
