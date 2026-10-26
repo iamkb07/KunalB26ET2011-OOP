@@ -2,86 +2,54 @@
 #include <string>
 using namespace std;
 
-class BasicInfo {
+class PersonalDetails {
 protected:
-    int empId;
     string name;
     int age;
-
 public:
-    BasicInfo() {
-        empId = 0;
-        name = "";
-        age = 0;
-    }
-
-    void inputBasicInfo() {
-        cout << "Enter Employee ID: ";
-        cin >> empId;
-        cin.ignore();
-        cout << "Enter Name: ";
+    void getPersonalDetails() {
+        cout << "Enter employee name: ";
         getline(cin, name);
-        cout << "Enter Age: ";
+        cout << "Enter employee age: ";
         cin >> age;
     }
-
-    void displayBasicInfo() {
-        cout << "Employee ID: " << empId << endl;
-        cout << "Name: " << name << endl;
-        cout << "Age: " << age << endl;
-    }
 };
 
-class DepartmentInfo {
+class DepartmentDetails {
 protected:
     string department;
-    string designation;
-    double salary;
-
+    int joiningYear;
 public:
-    DepartmentInfo() {
-        department = "";
-        designation = "";
-        salary = 0;
-    }
-
-    void inputDepartmentInfo() {
+    void getDepartmentDetails() {
         cin.ignore();
-        cout << "Enter Department: ";
+        cout << "Enter department name: ";
         getline(cin, department);
-        cout << "Enter Designation: ";
-        getline(cin, designation);
-        cout << "Enter Salary: ";
-        cin >> salary;
-    }
-
-    void displayDepartmentInfo() {
-        cout << "Department: " << department << endl;
-        cout << "Designation: " << designation << endl;
-        cout << "Salary: " << salary << endl;
+        cout << "Enter joining year: ";
+        cin >> joiningYear;
     }
 };
 
-class Employee : public BasicInfo, public DepartmentInfo {
+class Employee : public PersonalDetails, public DepartmentDetails {
 public:
-    void inputEmployee() {
-        cout << "Enter Employee Details" << endl;
-        inputBasicInfo();
-        inputDepartmentInfo();
-    }
+    void displayDetails() {
+        int currentYear;
+        cout << "Enter current year: ";
+        cin >> currentYear;
 
-    void displayEmployee() {
         cout << "\nEmployee Details" << endl;
-        displayBasicInfo();
-        displayDepartmentInfo();
+        cout << "Name: " << name << endl;
+        cout << "Age: " << age << endl;
+        cout << "Department: " << department << endl;
+        cout << "Joining Year: " << joiningYear << endl;
+        cout << "Total Years of Service: "
+             << currentYear - joiningYear << endl;
     }
 };
 
 int main() {
     Employee e;
-
-    e.inputEmployee();
-    e.displayEmployee();
-
+    e.getPersonalDetails();
+    e.getDepartmentDetails();
+    e.displayDetails();
     return 0;
 }
